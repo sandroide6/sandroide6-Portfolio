@@ -1,0 +1,203 @@
+/* =========================
+   1. FUENTES & RESET
+   ========================= */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  scroll-behavior: smooth;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+/* =========================
+   2. VARIABLES DE COLOR
+   ========================= */
+:root {
+  --color-background-primary: #0b0b0f;
+  --color-background-secondary: #1a1a1f;
+  --color-card-background: #151515;
+
+  --color-primary-base: #3b82f6;
+  --color-primary-dark: #1e40af;
+  --color-primary-light: #60a5fa;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #d1d5db;
+  --color-text-muted: #9ca3af;
+
+  --color-border: #2d2d2d;
+  --font-family-base: 'Inter', sans-serif;
+}
+
+/* =========================
+   3. ENCABEZADOS
+   ========================= */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-primary-light);
+  line-height: 1.2;
+}
+
+/* =========================
+   4. BOTONES
+   ========================= */
+.btn {
+  border-radius: 0.5rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  color: var(--color-text-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-base);
+  border-color: var(--color-primary-base);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-outline-secondary {
+  border: 2px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.btn-outline-secondary:hover {
+  border-color: var(--color-primary-base);
+  color: var(--color-primary-base);
+  background-color: transparent;
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, #9b5de5, #f15bb5);
+  color: white;
+  border: none;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 5px 15px rgba(241, 91, 181, 0.6);
+}
+
+/* =========================
+   5. CARDS DE PROYECTOS
+   ========================= */
+.project-card {
+  background-color: var(--color-card-background);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-primary-base);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.project-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.project-card img:hover {
+  transform: scale(1.05);
+}
+
+/* Badges de tecnología */
+.project-card .badge {
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background-color: var(--color-card-background);
+  color: var(--color-primary-light);
+}
+
+.project-card .badge:hover {
+  background-color: var(--color-primary-base);
+  border-color: var(--color-primary-base);
+  color: var(--color-background-primary);
+}
+
+/* =========================
+   6. HERO
+   ========================= */
+.hero-bg {
+  background: linear-gradient(120deg, var(--color-background-primary), var(--color-background-secondary));
+}
+
+.hero p {
+  color: var(--color-text-secondary);
+}
+
+/* =========================
+   7. FOOTER
+   ========================= */
+footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  margin-top: auto;
+}
+
+/* =========================
+   8. ICONOS & SOCIAL LINKS
+   ========================= */
+.social-links a {
+  transition: color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.8;
+  color: var(--color-text-secondary);
+}
+
+.social-links a:hover {
+  opacity: 1;
+  color: var(--color-primary-light);
+}
+
+/* =========================
+   9. RESPONSIVIDAD ADICIONAL
+   ========================= */
+@media (max-width: 768px) {
+  .project-card img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-card img {
+    height: 150px;
+  }
+}
+
