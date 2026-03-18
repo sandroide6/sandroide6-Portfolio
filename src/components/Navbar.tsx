@@ -1,120 +1,110 @@
-import { useState, useEffect } from "react";
-import { Menu, X, Sun, Moon, Send } from "lucide-react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { ExternalLink, Menu, Moon, Sun, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { navSections, siteConfig } from "../config/siteConfig";
 
-const navItems = [
-  { label: "Inicio", id: "hero" },
-  { label: "Sobre mí", id: "about" },
-  { label: "Habilidades", id: "skills" },
-  { label: "Proyectos", id: "projects" },
-];
+type Theme = "light" | "dark";
 
 const Navbar = () => {
-  const [isDark, setIsDark] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [theme, setTheme] = useState<Theme>("dark");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    setIsDark(document.body.classList.contains("dark-theme"));
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const savedTheme = localStorage.getItem("theme");
+    const nextTheme: Theme = savedTheme === "light" ? "light" : "dark";
+    setTheme(nextTheme);
+    document.documentElement.setAttribute("data-theme", nextTheme);
   }, []);
 
-  const toggleTheme = () => {
-    document.body.classList.toggle("dark-theme");
-    setIsDark(prev => !prev);
-  };
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname, location.hash]);
 
   const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const offset = document.querySelector('.navbar')?.clientHeight || 0;
+    if (location.pathname !== "/") {
+      navigate(`/#${id}`);
+      return;
+    }
+
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    const navbarHeight = document.querySelector(".main-navbar")?.clientHeight ?? 86;
     window.scrollTo({
-      top: el.getBoundingClientRect().top + window.scrollY - offset - 10,
-      behavior: "smooth"
+      top: target.getBoundingClientRect().top + window.scrollY - navbarHeight - 10,
+      behavior: "smooth",
     });
-    setIsMenuOpen(false);
   };
 
-  const linkVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.3 } }),
+  const toggleTheme = () => {
+    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
+    document.documentElement.setAttribute("data-theme", nextTheme);
   };
 
   return (
-    <nav
-      className="navbar navbar-expand-md fixed-top transition-all"
-      style={{
-        backgroundColor: isScrolled ? 'rgba(11,11,15,0.95)' : 'transparent',
-        backdropFilter: isScrolled ? 'blur(6px)' : 'none',
-        WebkitBackdropFilter: isScrolled ? 'blur(6px)' : 'none',
-        zIndex: 1000,
-      }}
-    >
-      <div className="container d-flex align-items-center py-2">
+    <header className={`main-navbar ${isScrolled ? "is-scrolled" : ""}`}>
+      <div className="container-xl nav-inner">
         <button
-          className="navbar-brand fw-bold fs-4 text-white border-0 bg-transparent"
+          type="button"
+          className="brand-mark"
           onClick={() => scrollToSection("hero")}
+          aria-label="Ir al inicio"
         >
-          S<span className="text-primary-base">E</span>
+          {siteConfig.firstName[0]}
+          <span>{siteConfig.lastName[0]}</span>
         </button>
 
         <button
-          className="navbar-toggler border-0 ms-auto"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          type="button"
+          className="menu-toggle d-md-none"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          aria-label={isMenuOpen ? "Cerrar menu" : "Abrir menu"}
+          aria-expanded={isMenuOpen}
         >
-          {isMenuOpen ? <X size={24} color="white"/> : <Menu size={24} color="white"/>}
+          {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
 
-        <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}>
-          <ul className="navbar-nav ms-auto align-items-center gap-2">
-            {navItems.map((item, i) => (
-              <motion.li
-                className="nav-item"
-                key={item.id}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={linkVariants}
-              >
-                <button
-                  className="btn btn-link nav-link px-3 text-secondary fw-medium"
-                  onClick={() => scrollToSection(item.id)}
-                  onMouseEnter={e => e.currentTarget.style.color = 'var(--color-primary-base)'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-secondary)'}
-                >
+        <div className={`nav-panel ${isMenuOpen ? "open" : ""}`}>
+          <ul className="nav-links-list" role="list">
+            {navSections.map((item) => (
+              <li key={item.id}>
+                <button type="button" className="nav-link-button" onClick={() => scrollToSection(item.id)}>
                   {item.label}
                 </button>
-              </motion.li>
+              </li>
             ))}
-
-            <motion.li
-              className="nav-item d-none d-md-block ms-3"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              <button 
-                className="btn btn-gradient fw-bold px-4 py-2 shadow-lg"
-                onClick={() => scrollToSection("contact")}
-              >
-                <Send size={16} className="me-2" />
-                Contáctame
-              </button>
-            </motion.li>
           </ul>
-        </div>
 
-        <button 
-          className="btn btn-sm btn-outline-light ms-3"
-          onClick={toggleTheme}
-          title="Cambiar tema"
-        >
-          {isDark ? <Sun size={18}/> : <Moon size={18}/>}
-        </button>
+          <div className="nav-actions">
+            <button type="button" className="btn btn-primary nav-cta" onClick={() => navigate("/projects")}> 
+              Portfolio completo
+              <ExternalLink size={15} />
+            </button>
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Activar tema claro" : "Activar tema oscuro"}
+              title={theme === "dark" ? "Tema claro" : "Tema oscuro"}
+            >
+              {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
+          </div>
+        </div>
       </div>
-    </nav>
+    </header>
   );
 };
 

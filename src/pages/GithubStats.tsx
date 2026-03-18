@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Code, Users, GitBranch } from "lucide-react";
+import { siteConfig } from "../config/siteConfig";
 
-// Tipado de los datos de GitHub
 interface GithubStatsData {
   public_repos: number;
   followers: number;
@@ -12,39 +12,56 @@ interface GithubStatsData {
   login: string;
 }
 
-// Tipado para cada estadística
 interface StatItem {
   label: string;
   value: number;
-  icon: typeof Code; // Componente React
+  icon: typeof Code;
   colorClass: string;
 }
+
+const CACHE_KEY = "github-stats-cache-v1";
 
 const GithubStats: React.FC = () => {
   const [stats, setStats] = useState<GithubStatsData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch de datos de GitHub
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchGithubData = async () => {
       try {
-        const res = await fetch("https://api.github.com/users/sandroide6");
+        const cachedValue = sessionStorage.getItem(CACHE_KEY);
+        if (cachedValue) {
+          const cachedData: GithubStatsData = JSON.parse(cachedValue);
+          setStats(cachedData);
+          return;
+        }
+
+        const res = await fetch("https://api.github.com/users/sandroide6", {
+          signal: controller.signal,
+          headers: { Accept: "application/vnd.github+json" },
+        });
         if (!res.ok) throw new Error(`Error ${res.status}`);
+
         const data: GithubStatsData = await res.json();
         setStats(data);
-      } catch {
-        setError(
-          "Lo sentimos, no pudimos cargar las estadísticas de GitHub. Inténtalo más tarde."
-        );
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify(data));
+      } catch (fetchError) {
+        if (fetchError instanceof DOMException && fetchError.name === "AbortError") return;
+
+        setError("No fue posible cargar estadisticas de GitHub en este momento.");
         setStats(null);
       }
     };
+
     fetchGithubData();
+
+    return () => controller.abort();
   }, []);
 
   if (error) {
     return (
-      <section className="container py-5 text-center">
+      <section className="section-shell text-center">
         <p className="alert alert-danger">{error}</p>
       </section>
     );
@@ -52,20 +69,18 @@ const GithubStats: React.FC = () => {
 
   if (!stats) {
     return (
-      <section className="container py-5 text-center">
-        <p className="text-secondary">Cargando estadísticas de GitHub... ⏳</p>
+      <section className="section-shell text-center">
+        <p className="text-secondary">Cargando estadisticas de GitHub...</p>
       </section>
     );
   }
 
-  // Definimos los items de estadísticas
   const statItems: StatItem[] = [
     { label: "Repositorios Públicos", value: stats.public_repos, icon: Code, colorClass: "text-info" },
     { label: "Seguidores", value: stats.followers, icon: Users, colorClass: "text-warning" },
     { label: "Gists Públicos", value: stats.public_gists, icon: GitBranch, colorClass: "text-success" },
   ];
 
-  // Variantes de animación
   const containerVariants: Variants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.15 } },
@@ -77,52 +92,54 @@ const GithubStats: React.FC = () => {
   };
 
   return (
-    <section className="container py-5">
-      <h2 className="fw-bold text-center mb-5 display-5">
-        Mi Perfil en <span className="text-primary-light">GitHub</span>
-      </h2>
+    <section className="section-shell" aria-labelledby="github-title">
+      <div className="container-xl">
+        <h2 id="github-title" className="section-title text-center">
+          Actividad en GitHub
+        </h2>
 
-      <div className="text-center mb-5">
-        <a
-          href={`https://github.com/${stats.login}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-outline-secondary btn-lg fw-bold"
+        <p className="section-lead text-center mx-auto mb-4">
+          Repositorios, colaboraciones y constancia de trabajo publico.
+        </p>
+
+        <div className="text-center mb-5">
+          <a
+            href={`https://github.com/${stats.login}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-secondary btn-lg fw-semibold"
+          >
+            Ver perfil de {siteConfig.firstName}
+          </a>
+        </div>
+
+        <motion.div
+          className="row g-4 justify-content-center"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
         >
-          Ver Perfil de GitHub
-        </a>
+          {statItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <motion.div key={item.label} className="col-12 col-md-6 col-lg-4" variants={itemVariants}>
+                <div className="project-card h-100 p-4 text-start d-flex align-items-center">
+                  <div className={`me-3 ${item.colorClass}`}>
+                    <Icon size={34} />
+                  </div>
+                  <div>
+                    <h3 className="h1 fw-bolder mb-0" style={{ lineHeight: 1 }}>
+                      {item.value}
+                    </h3>
+                    <p className="text-secondary mb-0">{item.label}</p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
-
-      <motion.div
-        className="row g-4 justify-content-center"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        {statItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <motion.div
-              key={item.label}
-              className="col-12 col-md-6 col-lg-4"
-              variants={itemVariants}
-            >
-              <div className="project-card h-100 p-4 text-start d-flex align-items-center">
-                <div className={`me-3 ${item.colorClass}`}>
-                  <Icon size={36} />
-                </div>
-                <div>
-                  <h3 className="h1 fw-bolder mb-0 text-white" style={{ lineHeight: 1 }}>
-                    {item.value}
-                  </h3>
-                  <p className="text-secondary mb-0">{item.label}</p>
-                </div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
     </section>
   );
 };

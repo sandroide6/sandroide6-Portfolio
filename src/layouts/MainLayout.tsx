@@ -7,9 +7,14 @@ interface Props {
 
 const MainLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div className="min-h-screen d-flex flex-column bg-dark text-white">
+    <div className="app-shell d-flex flex-column min-vh-100">
+      <a href="#main-content" className="skip-link">
+        Saltar al contenido principal
+      </a>
       <Navbar />
-      <main className="flex-grow-1 container py-5">{children}</main>
+      <main id="main-content" className="app-main flex-grow-1">
+        {children}
+      </main>
       <Footer />
     </div>
   );

@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 import Hero from "../components/Hero";
 import AboutMe from "./AboutMe";
 import Skills from "../components/Skills";
-import Projects from "../components/ProjectsCard";
+import Projects from "./Projects";
 import GithubStats from "../pages/GithubStats";
+import Contact from "./Contact";
 
 // Variantes para la animación de cada sección
 const sectionVariants: Variants = {
@@ -19,9 +21,28 @@ const sectionVariants: Variants = {
 };
 
 const Home: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const sectionId = location.hash.replace("#", "").trim();
+    if (!sectionId) return;
+
+    const timeout = window.setTimeout(() => {
+      const target = document.getElementById(sectionId);
+      if (!target) return;
+
+      const navbarHeight = document.querySelector(".main-navbar")?.clientHeight ?? 86;
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY - navbarHeight - 10,
+        behavior: "smooth",
+      });
+    }, 120);
+
+    return () => window.clearTimeout(timeout);
+  }, [location.hash]);
+
   return (
     <main className="overflow-hidden">
-      {/* Hero */}
       <motion.section
         id="hero"
         initial="hidden"
@@ -32,7 +53,6 @@ const Home: React.FC = () => {
         <Hero />
       </motion.section>
 
-      {/* About Me */}
       <motion.section
         id="about"
         initial="hidden"
@@ -43,7 +63,6 @@ const Home: React.FC = () => {
         <AboutMe />
       </motion.section>
 
-      {/* Skills */}
       <motion.section
         id="skills"
         initial="hidden"
@@ -54,7 +73,6 @@ const Home: React.FC = () => {
         <Skills />
       </motion.section>
 
-      {/* Projects */}
       <motion.section
         id="projects"
         initial="hidden"
@@ -62,10 +80,9 @@ const Home: React.FC = () => {
         viewport={{ once: true, amount: 0.3 }}
         variants={sectionVariants}
       >
-        <Projects />
+        <Projects limit={4} showFilters={false} />
       </motion.section>
 
-      {/* Github Stats */}
       <motion.section
         id="github-stats"
         initial="hidden"
@@ -74,6 +91,16 @@ const Home: React.FC = () => {
         variants={sectionVariants}
       >
         <GithubStats />
+      </motion.section>
+
+      <motion.section
+        id="contact"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={sectionVariants}
+      >
+        <Contact />
       </motion.section>
     </main>
   );

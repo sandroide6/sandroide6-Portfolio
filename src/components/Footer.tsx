@@ -1,28 +1,49 @@
-import { Github, Linkedin, Instagram } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { siteConfig } from "../config/siteConfig";
 
 const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
-    <footer
-      className="bg-dark text-white text-center py-5 mt-auto"
-      style={{ borderTop: "2px solid var(--color-primary-base)" }}
-    >
-      <p className="mb-3">© 2025 Santiago Echeverri. Todos los derechos reservados.</p>
+    <footer className="site-footer mt-auto">
+      <div className="container-xl py-4 py-md-5">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+          <div>
+            <p className="mb-1 fw-semibold">{siteConfig.fullName}</p>
+            <p className="mb-0 footer-muted">{siteConfig.role}</p>
+          </div>
 
-      <div className="d-flex justify-content-center gap-4 mb-3">
-        <a href="https://github.com/sandroide6" target="_blank" rel="noreferrer" title="GitHub" className="text-white hover:text-primary transition-colors">
-          <Github size={24} />
-        </a>
-        <a href="https://www.linkedin.com/in/tu-linkedin" target="_blank" rel="noreferrer" title="LinkedIn" className="text-white hover:text-primary transition-colors">
-          <Linkedin size={24} />
-        </a>
-        <a href="https://www.instagram.com/tu-instagram" target="_blank" rel="noreferrer" title="Instagram" className="text-white hover:text-primary transition-colors">
-          <Instagram size={24} />
-        </a>
+          <div className="d-flex align-items-center gap-3">
+            <a
+              href={siteConfig.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Perfil de GitHub"
+              className="social-icon-link"
+            >
+              <Github size={20} />
+            </a>
+            <a
+              href={siteConfig.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Perfil de LinkedIn"
+              className="social-icon-link"
+            >
+              <Linkedin size={20} />
+            </a>
+            <a href={`mailto:${siteConfig.email}`} aria-label="Enviar correo" className="social-icon-link">
+              <Mail size={20} />
+            </a>
+          </div>
+        </div>
+
+        <hr className="footer-separator" />
+
+        <p className="mb-0 footer-muted small text-center text-md-start">
+          © {year} {siteConfig.fullName}. Desarrollado con React, TypeScript y enfoque profesional.
+        </p>
       </div>
-
-      <p className="small text-white-50">
-  Diseñado y desarrollado por Santiago Echeverri con ❤️
-</p>
     </footer>
   );
 };
