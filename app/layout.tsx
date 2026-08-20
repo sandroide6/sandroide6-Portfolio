@@ -1,14 +1,7 @@
 import type { Metadata } from 'next';
-import { Syne, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/lib/config';
-
-const syne = Syne({
-  subsets: ['latin'],
-  variable: '--font-syne',
-  weight: ['400', '600', '700', '800'],
-  display: 'swap',
-});
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -20,7 +13,7 @@ const spaceGrotesk = Space_Grotesk({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
-  weight: ['300', '400', '500', '700'],
+  weight: ['300', '400', '500', '700', '800'],
   display: 'swap',
 });
 
@@ -39,7 +32,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${syne.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html lang="es" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-bg text-white font-body antialiased">
         {children}
       </body>

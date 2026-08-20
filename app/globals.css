@@ -2,6 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Sistema visual (documentado tras simplificación):
+
+  Color — 1 acento con propósito (verde terminal), resto en escala de grises:
+    bg base:        #050505
+    texto:          white (títulos) / white/60 (cuerpo) / white/45-50 (meta, mono)
+    acento primario: #10b981 (green-neon) — iconos, links activos, CTAs
+    acento oscuro:   #065f46 (green-dark) — solo en gradientes junto al acento primario
+
+  Tipografía — mono como protagonista en headers/técnico, sans para lectura larga:
+    display (Hero h1):  font-heading (= mono), clamp(3.5rem,8vw,7rem), font-black
+    heading (h2 sección): font-heading (= mono), text-4xl lg:text-5xl, font-black
+    body:                font-body (sans), text-base, white/60 — se mantiene sans por legibilidad en párrafos largos
+    meta/label:          font-mono, text-[10px]-text-xs, uppercase, tracking-widest
+
+  Efecto signature — lluvia de código (MatrixRain, canvas fijo detrás del contenido,
+  opacity 0.16, ~18fps). Único efecto "Matrix" del sitio. Se desactiva por completo
+  con prefers-reduced-motion y en viewports < 640px (ver .matrix-rain más abajo).
+
+  Espaciado — base 4px vía utilidades Tailwind:
+    sección:       py-20 lg:py-28
+    header→grid:   mb-12 lg:mb-16
+    grid gap:      gap-6
+    card padding:  p-6 (p-8 para paneles grandes como el form de contacto)
+
+  Fondo decorativo — una sola capa ambiental por página (la del Hero).
+  Las demás secciones usan fondo plano para evitar ruido visual repetido.
+*/
+
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
@@ -26,18 +55,18 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #7a0000, #c1121f);
+    background: linear-gradient(180deg, #065f46, #10b981);
     border-radius: 2px;
   }
 
   ::selection {
-    background: rgba(193, 18, 31, 0.2);
+    background: rgba(16, 185, 129, 0.2);
     color: #fff;
   }
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: #7a0000 #0a0a0a;
+    scrollbar-color: #065f46 #0a0a0a;
   }
 }
 
@@ -47,21 +76,21 @@
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(193, 18, 31, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.1);
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   .glass-card:hover {
-    background: rgba(193, 18, 31, 0.04);
-    border-color: rgba(193, 18, 31, 0.28);
-    box-shadow: 0 0 40px rgba(193, 18, 31, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    background: rgba(16, 185, 129, 0.04);
+    border-color: rgba(16, 185, 129, 0.28);
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     transform: translateY(-2px);
   }
 
   .glass-input {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(193, 18, 31, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.15);
     color: #fff;
     transition: all 0.3s ease;
     outline: none;
@@ -72,9 +101,9 @@
   }
 
   .glass-input:focus {
-    border-color: rgba(193, 18, 31, 0.5);
-    box-shadow: 0 0 20px rgba(193, 18, 31, 0.12);
-    background: rgba(193, 18, 31, 0.03);
+    border-color: rgba(16, 185, 129, 0.5);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.12);
+    background: rgba(16, 185, 129, 0.03);
   }
 
   .glass-input::placeholder {
@@ -83,27 +112,18 @@
 
   /* Gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, #ffffff 0%, #ff6b7a 40%, #c1121f 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #a7f3d0 40%, #10b981 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-  }
-
-  .gradient-text-animated {
-    background: linear-gradient(90deg, #c1121f, #ff6b7a, #c1121f, #7a0000);
-    background-size: 300% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 4s linear infinite;
   }
 
   /* Buttons */
-  .btn-red {
+  .btn-green {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #7a0000, #c1121f);
-    border: 1px solid rgba(193, 18, 31, 0.4);
+    background: linear-gradient(135deg, #065f46, #10b981);
+    border: 1px solid rgba(16, 185, 129, 0.4);
     color: white;
     padding: 0.875rem 2rem;
     border-radius: 3px;
@@ -119,7 +139,7 @@
     cursor: none;
   }
 
-  .btn-red::before {
+  .btn-green::before {
     content: '';
     position: absolute;
     top: 0;
@@ -130,14 +150,14 @@
     transition: left 0.5s ease;
   }
 
-  .btn-red:hover::before {
+  .btn-green:hover::before {
     left: 100%;
   }
 
-  .btn-red:hover {
-    box-shadow: 0 0 40px rgba(193, 18, 31, 0.5), 0 0 80px rgba(193, 18, 31, 0.15);
+  .btn-green:hover {
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.5), 0 0 80px rgba(16, 185, 129, 0.15);
     transform: translateY(-2px);
-    border-color: rgba(193, 18, 31, 0.7);
+    border-color: rgba(16, 185, 129, 0.7);
   }
 
   .btn-ghost {
@@ -162,9 +182,9 @@
 
   .btn-ghost:hover {
     background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(193, 18, 31, 0.5);
+    border-color: rgba(16, 185, 129, 0.5);
     color: white;
-    box-shadow: 0 0 20px rgba(193, 18, 31, 0.1);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
   }
 
   /* Section label */
@@ -172,7 +192,7 @@
     font-family: var(--font-mono), monospace;
     font-size: 0.7rem;
     letter-spacing: 0.25em;
-    color: #c1121f;
+    color: #10b981;
     text-transform: uppercase;
     display: flex;
     align-items: center;
@@ -184,22 +204,7 @@
     display: inline-block;
     width: 20px;
     height: 1px;
-    background: #c1121f;
-  }
-
-  /* Red glow ambient */
-  .ambient-red {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(193, 18, 31, 0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  /* Grid overlay */
-  .grid-overlay {
-    background-image: linear-gradient(rgba(193, 18, 31, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(193, 18, 31, 0.05) 1px, transparent 1px);
-    background-size: 80px 80px;
+    background: #10b981;
   }
 
   /* Tech tag */
@@ -207,63 +212,37 @@
     font-family: var(--font-mono), monospace;
     font-size: 0.7rem;
     padding: 0.2rem 0.6rem;
-    border: 1px solid rgba(193, 18, 31, 0.25);
+    border: 1px solid rgba(16, 185, 129, 0.25);
     border-radius: 2px;
-    color: rgba(193, 18, 31, 0.8);
-    background: rgba(193, 18, 31, 0.05);
+    color: rgba(16, 185, 129, 0.8);
+    background: rgba(16, 185, 129, 0.05);
     letter-spacing: 0.05em;
     white-space: nowrap;
   }
 
-  /* Noise overlay */
+  /* Noise overlay — subtle static texture, no longer animated (was a
+     constant repaint every 0.5s purely for decoration, no added value) */
   .noise {
     position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 999;
-    opacity: 0.025;
+    opacity: 0.015;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    animation: noiseAnim 0.5s steps(2) infinite;
   }
-
-  @keyframes noiseAnim {
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(-5%, -5%); }
-    50% { transform: translate(5%, 5%); }
-    75% { transform: translate(-5%, 5%); }
-    100% { transform: translate(5%, -5%); }
-  }
-}
-
-@keyframes shimmer {
-  0% { background-position: -300% center; }
-  100% { background-position: 300% center; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-12px) rotate(1deg); }
-  66% { transform: translateY(-6px) rotate(-1deg); }
-}
-
-@keyframes glowPulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
-}
-
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-40px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Custom cursor reset (handled by component) */
 * { cursor: none !important; }
 a, button { cursor: none !important; }
+
+/* Defense-in-depth: hide the matrix rain canvas outright under reduced motion,
+   independent of the component's own JS check. */
+@media (prefers-reduced-motion: reduce) {
+  .matrix-rain {
+    display: none !important;
+  }
+}

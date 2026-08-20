@@ -45,10 +45,10 @@ export default function Navbar() {
         ref={navRef}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 2.8, ease: [0.23, 1, 0.32, 1] }}
+        transition={{ duration: 0.6, delay: 1.3, ease: [0.23, 1, 0.32, 1] }}
         className={`fixed top-0 left-0 right-0 z-[900] transition-all duration-500 ${
           scrolled
-            ? 'bg-[#050505]/90 backdrop-blur-xl border-b border-red-dark/20'
+            ? 'bg-[#050505]/90 backdrop-blur-xl border-b border-green-dark/20'
             : 'bg-transparent'
         }`}
       >
@@ -60,7 +60,7 @@ export default function Navbar() {
               className="font-heading font-black text-2xl tracking-tight"
             >
               <span className="text-white">S</span>
-              <span className="text-red-neon" style={{ textShadow: '0 0 15px rgba(193,18,31,0.6)' }}>.</span>
+              <span className="text-green-neon" style={{ textShadow: '0 0 15px rgba(16, 185, 129, 0.6)' }}>.</span>
               <span className="text-white">E</span>
             </button>
 
@@ -74,15 +74,15 @@ export default function Navbar() {
                     key={href}
                     onClick={() => handleNavClick(href)}
                     className={`font-mono text-xs tracking-widest uppercase transition-all duration-300 relative ${
-                      isActive ? 'text-red-neon' : 'text-white/40 hover:text-white/80'
+                      isActive ? 'text-green-neon' : 'text-white/55 hover:text-white'
                     }`}
                   >
                     {label}
                     {isActive && (
                       <motion.div
                         layoutId="activeIndicator"
-                        className="absolute -bottom-1 left-0 right-0 h-px bg-red-neon"
-                        style={{ boxShadow: '0 0 6px rgba(193,18,31,0.8)' }}
+                        className="absolute -bottom-1 left-0 right-0 h-px bg-green-neon"
+                        style={{ boxShadow: '0 0 6px rgba(16, 185, 129, 0.8)' }}
                       />
                     )}
                   </button>
@@ -106,7 +106,7 @@ export default function Navbar() {
                   href={siteConfig.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/30 hover:text-red-neon transition-colors duration-300"
+                  className="text-white/30 hover:text-green-neon transition-colors duration-300"
                   aria-label="LinkedIn"
                 >
                   <Linkedin size={16} />
@@ -132,7 +132,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-16 left-0 right-0 z-[899] bg-[#050505]/95 backdrop-blur-xl border-b border-red-dark/20"
+            className="fixed top-16 left-0 right-0 z-[899] bg-[#050505]/95 backdrop-blur-xl border-b border-green-dark/20"
           >
             <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-4">
               {navLinks.map(({ label, href }) => (
@@ -148,7 +148,7 @@ export default function Navbar() {
                 <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white">
                   <Github size={18} />
                 </a>
-                <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-red-neon">
+                <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-green-neon">
                   <Linkedin size={18} />
                 </a>
               </div>

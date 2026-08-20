@@ -10,9 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         bg: '#050505',
-        'red-dark': '#7a0000',
-        'red-neon': '#c1121f',
-        'red-bright': '#ff2d3f',
+        'green-dark': '#065f46',
+        'green-neon': '#10b981',
+        'green-bright': '#34d399',
         graphite: {
           50: '#3a3a3a',
           100: '#2a2a2a',
@@ -22,13 +22,13 @@ const config: Config = {
         },
       },
       fontFamily: {
-        heading: ['var(--font-syne)', 'sans-serif'],
+        heading: ['var(--font-mono)', 'monospace'],
         body: ['var(--font-space)', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'grid-red': "linear-gradient(rgba(193,18,31,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(193,18,31,0.06) 1px, transparent 1px)",
+        'grid-green': "linear-gradient(rgba(16, 185, 129, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.06) 1px, transparent 1px)",
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
@@ -43,8 +43,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-18px)' },
         },
         glowPulse: {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(193,18,31,0.2)' },
-          '50%': { boxShadow: '0 0 50px rgba(193,18,31,0.5), 0 0 100px rgba(122,0,0,0.2)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgba(16, 185, 129, 0.2)' },
+          '50%': { boxShadow: '0 0 50px rgba(16, 185, 129, 0.5), 0 0 100px rgba(6, 95, 70, 0.2)' },
         },
         shimmer: {
           '0%': { backgroundPosition: '-200% center' },
@@ -56,10 +56,10 @@ const config: Config = {
         },
       },
       boxShadow: {
-        'red-sm': '0 0 15px rgba(193,18,31,0.2)',
-        'red-md': '0 0 30px rgba(193,18,31,0.3)',
-        'red-lg': '0 0 60px rgba(193,18,31,0.4), 0 0 100px rgba(122,0,0,0.15)',
-        'red-xl': '0 0 80px rgba(193,18,31,0.5), 0 0 150px rgba(193,18,31,0.2)',
+        'green-sm': '0 0 15px rgba(16, 185, 129, 0.2)',
+        'green-md': '0 0 30px rgba(16, 185, 129, 0.3)',
+        'green-lg': '0 0 60px rgba(16, 185, 129, 0.4), 0 0 100px rgba(6, 95, 70, 0.15)',
+        'green-xl': '0 0 80px rgba(16, 185, 129, 0.5), 0 0 150px rgba(16, 185, 129, 0.2)',
         'glass': '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
       },
     },

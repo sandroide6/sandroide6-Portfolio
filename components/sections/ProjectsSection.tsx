@@ -1,10 +1,10 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Image from 'next/image';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, Zap } from 'lucide-react';
 import { projects } from '@/lib/config';
+import ProjectCover from '@/components/ui/ProjectCover';
 
 const containerVariants = {
   hidden: {},
@@ -19,9 +19,11 @@ const cardVariants = {
 function ProjectCard({
   project,
   featured = false,
+  index,
 }: {
   project: (typeof projects)[number];
   featured?: boolean;
+  index: number;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -37,24 +39,20 @@ function ProjectCard({
         <div
           className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-sm font-mono text-[10px] uppercase tracking-widest"
           style={{
-            background: 'rgba(193,18,31,0.15)',
-            border: '1px solid rgba(193,18,31,0.3)',
-            color: '#c1121f',
+            background: 'rgba(16, 185, 129, 0.15)',
+            border: '1px solid rgba(16, 185, 129, 0.3)',
+            color: '#10b981',
           }}
         >
           <Zap size={9} /> Featured
         </div>
       )}
 
-      {/* Image */}
+      {/* Cover */}
       <div className={`relative overflow-hidden ${featured ? 'h-52 sm:h-64' : 'h-44'}`}>
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover transition-all duration-700 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+        <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
+          <ProjectCover seed={index} />
+        </div>
         {/* Overlay */}
         <div
           className="absolute inset-0 transition-opacity duration-500"
@@ -87,7 +85,7 @@ function ProjectCard({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 rounded-sm text-sm font-medium"
-                  style={{ background: 'rgba(193,18,31,0.2)', border: '1px solid rgba(193,18,31,0.4)', color: '#c1121f' }}
+                  style={{ background: 'rgba(16, 185, 129, 0.2)', border: '1px solid rgba(16, 185, 129, 0.4)', color: '#10b981' }}
                 >
                   <ExternalLink size={14} /> Ver
                 </a>
@@ -100,7 +98,7 @@ function ProjectCard({
       {/* Content */}
       <div className="p-5">
         <h3 className="font-heading font-bold text-base text-white mb-2">{project.title}</h3>
-        <p className="text-white/40 text-sm leading-relaxed mb-4">{project.description}</p>
+        <p className="text-white/60 text-sm leading-relaxed mb-4">{project.description}</p>
         <div className="flex flex-wrap gap-2">
           {project.tech.map((t) => (
             <span key={t} className="tech-tag">{t}</span>
@@ -116,20 +114,14 @@ export default function ProjectsSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} id="projects" className="relative py-32 overflow-hidden">
-      {/* Ambient */}
-      <div
-        className="absolute bottom-0 left-0 w-[600px] h-[400px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at bottom left, rgba(122,0,0,0.08) 0%, transparent 60%)' }}
-      />
-
+    <section ref={ref} id="projects" className="relative py-20 lg:py-28 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="mb-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+          className="mb-12 lg:mb-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
         >
           <div>
             <p className="section-label mb-4">Proyectos</p>
@@ -153,13 +145,14 @@ export default function ProjectsSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <ProjectCard
               key={project.title}
               project={project}
               featured={project.featured}
+              index={index}
             />
           ))}
         </motion.div>

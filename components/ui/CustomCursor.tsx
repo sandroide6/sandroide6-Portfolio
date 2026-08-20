@@ -65,13 +65,12 @@ export default function CustomCursor() {
         ref={cursorRef}
         className="fixed top-0 left-0 z-[10000] pointer-events-none will-change-transform"
         style={{
-          width: isHovering ? '50px' : '40px',
-          height: isHovering ? '50px' : '40px',
-          border: `1px solid ${isHovering ? '#c1121f' : 'rgba(193,18,31,0.5)'}`,
+          width: isHovering ? '46px' : '36px',
+          height: isHovering ? '46px' : '36px',
+          border: `1px solid ${isHovering ? 'rgba(16, 185, 129, 0.7)' : 'rgba(255,255,255,0.25)'}`,
           borderRadius: '50%',
           transition: 'width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease',
-          opacity: isVisible ? (isHovering ? 0.9 : 0.5) : 0,
-          mixBlendMode: 'difference',
+          opacity: isVisible ? 1 : 0,
         }}
       />
       {/* Dot - snaps to position */}
@@ -81,11 +80,11 @@ export default function CustomCursor() {
         style={{
           width: '6px',
           height: '6px',
-          background: '#c1121f',
+          background: '#10b981',
           borderRadius: '50%',
           opacity: isVisible ? 1 : 0,
           transition: 'opacity 0.3s ease',
-          boxShadow: '0 0 8px rgba(193,18,31,0.8)',
+          boxShadow: '0 0 8px rgba(16, 185, 129, 0.8)',
         }}
       />
     </>

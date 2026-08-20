@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 
 const LoadingScreen = dynamic(() => import('@/components/ui/LoadingScreen'), { ssr: false });
 const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor'), { ssr: false });
+const MatrixRain = dynamic(() => import('@/components/ui/MatrixRain'), { ssr: false });
 const LenisProvider = dynamic(() => import('@/components/providers/LenisProvider'), { ssr: false });
 
 export default function ClientProviders({ children }: { children: React.ReactNode }) {
@@ -11,6 +12,7 @@ export default function ClientProviders({ children }: { children: React.ReactNod
     <>
       <LoadingScreen />
       <CustomCursor />
+      <MatrixRain />
       <LenisProvider>{children}</LenisProvider>
     </>
   );

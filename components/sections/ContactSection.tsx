@@ -32,27 +32,21 @@ export default function ContactSection() {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
   return (
-    <section ref={ref} id="contact" className="relative py-32 overflow-hidden">
-      {/* Ambient top */}
-      <div
-        className="absolute top-0 right-0 w-[600px] h-[400px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at top right, rgba(122,0,0,0.1) 0%, transparent 60%)' }}
-      />
-
+    <section ref={ref} id="contact" className="relative py-20 lg:py-28 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="mb-16 max-w-xl"
+          className="mb-12 lg:mb-16 max-w-2xl"
         >
           <p className="section-label mb-4">Contacto</p>
           <h2 className="font-heading font-black text-4xl lg:text-5xl text-white leading-tight mb-4">
             Hablemos sobre<br />
             <span className="gradient-text">tu próximo proyecto.</span>
           </h2>
-          <p className="text-white/40 leading-relaxed">
+          <p className="text-white/60 leading-relaxed">
             Tengo una oportunidad, idea o colaboración? Estoy disponible para conversar.
           </p>
         </motion.div>
@@ -69,14 +63,14 @@ export default function ContactSection() {
               className="rounded-2xl p-8"
               style={{
                 background: 'rgba(255,255,255,0.02)',
-                border: '1px solid rgba(193,18,31,0.1)',
+                border: '1px solid rgba(16, 185, 129, 0.1)',
                 backdropFilter: 'blur(16px)',
               }}
             >
               <form onSubmit={onSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-2 block">
+                    <label className="font-mono text-[10px] text-white/50 uppercase tracking-widest mb-2 block">
                       Nombre
                     </label>
                     <input
@@ -89,7 +83,7 @@ export default function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-2 block">
+                    <label className="font-mono text-[10px] text-white/50 uppercase tracking-widest mb-2 block">
                       Correo
                     </label>
                     <input
@@ -103,7 +97,7 @@ export default function ContactSection() {
                   </div>
                 </div>
                 <div>
-                  <label className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-2 block">
+                  <label className="font-mono text-[10px] text-white/50 uppercase tracking-widest mb-2 block">
                     Mensaje
                   </label>
                   <textarea
@@ -116,7 +110,7 @@ export default function ContactSection() {
                   />
                 </div>
 
-                <button type="submit" className="btn-red w-full justify-center">
+                <button type="submit" className="btn-green w-full justify-center">
                   <Send size={14} /> Enviar mensaje
                   <ArrowRight size={14} className="ml-auto" />
                 </button>
@@ -158,17 +152,16 @@ export default function ContactSection() {
             ].map(({ icon, label, value, href }) => (
               <div
                 key={label}
-                className="flex items-start gap-4 p-5 rounded-xl"
-                style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}
+                className="glass-card flex items-start gap-4 p-5 rounded-xl"
               >
                 <div
-                  className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-red-neon"
-                  style={{ background: 'rgba(193,18,31,0.08)', border: '1px solid rgba(193,18,31,0.15)' }}
+                  className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-green-neon"
+                  style={{ background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.15)' }}
                 >
                   {icon}
                 </div>
                 <div>
-                  <p className="font-mono text-[10px] text-white/25 uppercase tracking-widest mb-0.5">{label}</p>
+                  <p className="font-mono text-[10px] text-white/50 uppercase tracking-widest mb-0.5">{label}</p>
                   {href ? (
                     <a href={href} className="text-sm text-white/70 hover:text-white transition-colors">
                       {value}
@@ -181,11 +174,8 @@ export default function ContactSection() {
             ))}
 
             {/* Social links */}
-            <div
-              className="p-5 rounded-xl"
-              style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}
-            >
-              <p className="font-mono text-[10px] text-white/25 uppercase tracking-widest mb-4">Redes</p>
+            <div className="glass-card p-5 rounded-xl">
+              <p className="font-mono text-[10px] text-white/50 uppercase tracking-widest mb-4">Redes</p>
               <div className="flex gap-3">
                 <a
                   href={siteConfig.social.github}
@@ -199,7 +189,7 @@ export default function ContactSection() {
                   href={siteConfig.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-white/50 hover:text-red-neon px-3 py-2 rounded-lg transition-all hover:bg-red-dark/10"
+                  className="flex items-center gap-2 text-sm text-white/50 hover:text-green-neon px-3 py-2 rounded-lg transition-all hover:bg-green-dark/10"
                 >
                   <Linkedin size={15} /> LinkedIn
                 </a>
@@ -209,13 +199,13 @@ export default function ContactSection() {
             {/* Availability indicator */}
             <div
               className="p-5 rounded-xl"
-              style={{ background: 'rgba(193,18,31,0.04)', border: '1px solid rgba(193,18,31,0.12)' }}
+              style={{ background: 'rgba(16, 185, 129, 0.04)', border: '1px solid rgba(16, 185, 129, 0.12)' }}
             >
               <div className="flex items-center gap-3 mb-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="font-mono text-[10px] text-emerald-400/70 uppercase tracking-widest">Disponible</span>
               </div>
-              <p className="text-sm text-white/40">
+              <p className="text-sm text-white/60">
                 Abierto a proyectos freelance y colaboraciones remotas.
               </p>
             </div>

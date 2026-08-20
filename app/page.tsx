@@ -4,7 +4,6 @@ import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
-import TechStackSection from '@/components/sections/TechStackSection';
 import ContactSection from '@/components/sections/ContactSection';
 import ClientProviders from '@/components/ClientProviders';
 
@@ -20,7 +19,6 @@ export default function Home() {
           <AboutSection />
           <ServicesSection />
           <ProjectsSection />
-          <TechStackSection />
           <ContactSection />
         </main>
         <Footer />

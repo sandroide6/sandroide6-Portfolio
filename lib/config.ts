@@ -4,12 +4,9 @@ export const siteConfig = {
   fullName: 'Santiago Echeverri',
   handle: 'sandroide6',
   role: 'Full Stack Developer & AI Systems',
-  tagline: 'Construyo automatizaciones, sistemas inteligentes y experiencias digitales del futuro.',
-  subTagline: 'Programación avanzada, IA y automatización para negocios y proyectos escalables.',
+  tagline: 'Construyo automatizaciones, sistemas inteligentes y experiencias digitales.',
   email: 'sandroide.contact@gmail.com',
   location: 'Medellín, Colombia',
-  summary:
-    'Desarrollador enfocado en software, automatización, IA y sistemas escalables. Construyo soluciones de alto impacto con precisión técnica y enfoque en resultados reales.',
   social: {
     github: 'https://github.com/sandroide6',
     linkedin: 'https://www.linkedin.com/in/sandroide6',
@@ -27,15 +24,8 @@ export const navLinks = [
   { label: 'Sobre mí', href: '#about' },
   { label: 'Servicios', href: '#services' },
   { label: 'Proyectos', href: '#projects' },
-  { label: 'Stack', href: '#stack' },
   { label: 'Contacto', href: '#contact' },
 ] as const;
-
-export const aboutStats = [
-  { value: '5+', label: 'Proyectos' },
-  { value: 'IA', label: 'Integrado' },
-  { value: '∞', label: 'Escalable' },
-];
 
 export const aboutHighlights = [
   {
@@ -59,11 +49,6 @@ export const aboutHighlights = [
     text: 'Integración de modelos de lenguaje (OpenAI, LangChain) en productos reales y escalables.',
   },
   {
-    icon: 'GitBranch',
-    title: 'Infraestructura',
-    text: 'Experiencia con Docker, PostgreSQL, Supabase y arquitecturas de microservicios.',
-  },
-  {
     icon: 'Heart',
     title: 'Compromiso',
     text: 'Disciplina personal, aprendizaje continuo y enfoque en calidad de entregables.',
@@ -74,91 +59,96 @@ export const services = [
   {
     icon: 'Bot',
     title: 'Automatización IA',
-    description:
-      'Flujos inteligentes con LangChain, OpenAI y APIs personalizadas que automatizan procesos complejos.',
+    description: 'Flujos y APIs con LangChain y OpenAI que automatizan procesos.',
     tags: ['LangChain', 'OpenAI', 'Python'],
   },
   {
     icon: 'Globe',
     title: 'Desarrollo Web Full Stack',
-    description:
-      'Aplicaciones web modernas y responsivas con Next.js, React y arquitectura serverless optimizada.',
+    description: 'Aplicaciones web con Next.js, React y arquitectura serverless.',
     tags: ['Next.js', 'React', 'TypeScript'],
   },
   {
     icon: 'Plug',
     title: 'Integraciones API',
-    description:
-      'Diseño e integración de REST APIs, webhooks y servicios de terceros para ecosistemas conectados.',
+    description: 'Diseño e integración de REST APIs, webhooks y servicios de terceros.',
     tags: ['REST', 'GraphQL', 'Node.js'],
   },
   {
     icon: 'MessageSquare',
     title: 'Bots Inteligentes',
-    description:
-      'Bots para Telegram, WhatsApp, Discord y plataformas empresariales con procesamiento de lenguaje natural.',
+    description: 'Bots para Telegram, WhatsApp y Discord con procesamiento de lenguaje natural.',
     tags: ['Telegram API', 'NLP', 'Python'],
   },
   {
     icon: 'Settings2',
     title: 'Sistemas Personalizados',
-    description:
-      'Arquitecturas a medida: gestión de inventarios, CRMs, ERPs y dashboards operativos escalables.',
+    description: 'Arquitecturas a medida: inventarios, CRMs, ERPs y dashboards operativos.',
     tags: ['PostgreSQL', 'Docker', 'Supabase'],
   },
   {
     icon: 'BarChart3',
     title: 'Dashboards & Analytics',
-    description:
-      'Paneles en tiempo real con visualización de datos, métricas de negocio y reportes automatizados.',
+    description: 'Paneles en tiempo real con métricas de negocio y reportes automatizados.',
     tags: ['React', 'Supabase', 'Realtime'],
   },
 ];
 
 export const projects = [
   {
-    title: 'Sistema Biblioteca',
-    description:
-      'Sistema de gestión bibliotecaria completo: control de préstamos, devoluciones, catálogo digital y reportes automatizados.',
-    image: '/assets/img/ProyectoBiblioteca.png',
-    tech: ['Java', 'MySQL', 'JavaFX'],
-    github: 'https://github.com/sandroide6/Sistema-Biblioteca',
+    title: 'L.A.M.A. Medellín — Gestión de Miembros',
+    description: 'Sistema de gestión de miembros con React, Firebase y ASP.NET Core 9 Web API.',
+    tech: ['React', 'Firebase', 'ASP.NET Core'],
+    github: 'https://github.com/sandroide6/L.A.M.A-Medellin_Members-Management-System',
     featured: true,
   },
   {
-    title: 'Inventario Tecnología',
-    description:
-      'Plataforma de gestión de activos tecnológicos con control de inventario, tracking y automatización de procesos operativos.',
-    image: '/assets/img/ProyectoInventario.jpg',
-    tech: ['Python', 'SQLite', 'Automatización'],
-    github: 'https://github.com/sandroide6/InventarioTecnologia',
+    title: 'Transcriptor de Audio IA',
+    description: 'Transcripción local de audio con Whisper: pipeline FFmpeg, Demucs, faster-whisper y pyannote.',
+    tech: ['Python', 'Whisper', 'Flask'],
+    github: 'https://github.com/sandroide6/audio-transcriptor-whisper-ollama',
+    featured: false,
+  },
+  {
+    title: 'SportPyramid',
+    description: 'PWA offline-first para gestionar brackets de torneo en más de 30 disciplinas deportivas.',
+    tech: ['TypeScript', 'PWA', 'Offline-first'],
+    github: 'https://github.com/sandroide6/Web_SportPyramid',
+    featured: false,
+  },
+  {
+    title: 'Gestión Innovación Curricular',
+    description: 'Sitio corporativo con operaciones CRUD para información de innovación curricular universitaria.',
+    tech: ['C#', 'ASP.NET Core', 'Blazor'],
+    github: 'https://github.com/sandroide6/SISTEMA-DE-GESTION-DE-INFORMACION-DEL-CONOCIMIENTO-UNIVERSITARIO',
+    featured: false,
+  },
+  {
+    title: 'Sistema Biblioteca',
+    description: 'Consola en .NET 8 para préstamo de libros aplicando los 4 pilares de POO.',
+    tech: ['C#', '.NET 8', 'POO'],
+    github: 'https://github.com/sandroide6/Library_Management_System',
+    featured: false,
+  },
+  {
+    title: 'WarBichos',
+    description: 'Juego de estrategia por turnos en cuadrícula, para ejecución en consola.',
+    tech: ['Java', 'Game Dev', 'Consola'],
+    github: 'https://github.com/sandroide6/WarBichos-Game',
+    featured: false,
+  },
+  {
+    title: 'Calculadora VLSM',
+    description: 'Calculadora VLSM interactiva para diseño de planes de direccionamiento IP.',
+    tech: ['JavaScript', 'Redes', 'VLSM'],
+    github: 'https://github.com/sandroide6/vlsm-calculator',
     featured: false,
   },
   {
     title: 'Analizador de Expresiones',
-    description:
-      'Analizador léxico y sintáctico para expresiones aritméticas: implementación de fundamentos de compiladores.',
-    image: '/assets/img/ProyectoInventario.jpg',
-    tech: ['C++', 'Algoritmos', 'Compiladores'],
-    github: 'https://github.com/sandroide6/Analizador-de-Expresiones-Aritmeticas',
-    featured: false,
-  },
-  {
-    title: 'Videojuego Bichos',
-    description:
-      'Videojuego en Java con lógica de juego avanzada, física modular y arquitectura orientada a objetos.',
-    image: '/assets/img/WarBichos.jpg',
-    tech: ['Java', 'Game Dev', 'POO'],
-    github: 'https://github.com/sandroide6/Videojuego-Bichos',
-    featured: false,
-  },
-  {
-    title: 'Proyectos IoT & Arduino',
-    description:
-      'Prototipos de hardware con sensores, microcontroladores y conectividad para automatización de entornos físicos.',
-    image: '/assets/img/avatar.png',
-    tech: ['Arduino', 'IoT', 'Electrónica'],
-    github: 'https://github.com/sandroide6',
+    description: 'Analizador de expresiones aritméticas con POO y estructura de árbol binario.',
+    tech: ['C++', 'Algoritmos', 'POO'],
+    github: 'https://github.com/sandroide6/Arithmetic_Expression_Analyzer',
     featured: false,
   },
 ];
