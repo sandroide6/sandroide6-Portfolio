@@ -1,41 +1,35 @@
-import type { Metadata } from 'next';
-import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { siteConfig } from '@/lib/config';
+import { profile } from '@/lib/content';
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-space',
-  weight: ['300', '400', '500', '600', '700'],
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  weight: ['300', '400', '500', '700', '800'],
-  display: 'swap',
-});
+const geist = Geist({ subsets: ['latin'], weight: ['300', '400', '500'], variable: '--font-geist', display: 'swap' });
+const geistMono = Geist_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-geist-mono', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: siteConfig.seo.title,
-  description: siteConfig.seo.description,
+  metadataBase: new URL(profile.seo.siteUrl),
+  title: profile.seo.title,
+  description: profile.seo.description,
   openGraph: {
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
-    url: siteConfig.seo.siteUrl,
-    siteName: siteConfig.fullName,
+    title: profile.seo.title,
+    description: profile.seo.description,
+    url: profile.seo.siteUrl,
+    siteName: profile.brand,
     locale: 'es_CO',
     type: 'website',
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: '#151515',
+  colorScheme: 'dark',
+  viewportFit: 'cover',
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-bg text-white font-body antialiased">
-        {children}
-      </body>
+    <html lang="es" className={`${geist.variable} ${geistMono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

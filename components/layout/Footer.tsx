@@ -1,72 +1,51 @@
-'use client';
-
-import { Github, Linkedin, Mail, ArrowUpCircle } from 'lucide-react';
-import { siteConfig } from '@/lib/config';
+import { featured, profile, projects } from '@/lib/content';
 
 export default function Footer() {
-  const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
+  const list = [featured, ...projects.slice(0, 3)];
   return (
-    <footer className="relative border-t border-green-dark/15 py-12 overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Logo */}
+    <footer className="site-footer">
+      <div className="wrap">
+        <p className="brand">
+          {profile.brandUpper} —<br />
+          <span>
+            software a la medida,
+            <br />
+            seguro desde el diseño.
+          </span>
+        </p>
+        <div className="cols">
           <div>
-            <p className="font-heading font-black text-2xl">
-              <span className="text-white">S</span>
-              <span className="text-green-neon">.</span>
-              <span className="text-white">E</span>
-            </p>
-            <p className="font-mono text-[10px] text-white/45 tracking-[0.25em] uppercase mt-1">
-              Santiago Echeverri
-            </p>
+            <span className="label">[ Proyectos ]</span>
+            <ul>
+              {list.map((p) => (
+                <li key={p.slug}>
+                  <a href={p.demo ?? p.repo} target="_blank" rel="noopener noreferrer">
+                    {p.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-
-          {/* Center */}
-          <div className="text-center">
-            <p className="font-mono text-[11px] text-white/45 tracking-widest">
-              CRAFTED WITH PRECISION — MEDELLÍN, COLOMBIA
-            </p>
-            <p className="font-mono text-[10px] text-white/35 mt-1">
-              © {new Date().getFullYear()} {siteConfig.fullName}. All rights reserved.
-            </p>
+          <div>
+            <span className="label">[ Sobre mí ]</span>
+            <ul>
+              <li><a href="#sobre-mi">Estudios</a></li>
+              <li><a href="#stack">Stack</a></li>
+              <li><a href="#contacto">Contacto</a></li>
+            </ul>
           </div>
-
-          {/* Social + scroll top */}
-          <div className="flex items-center gap-5">
-            <a
-              href={siteConfig.social.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/30 hover:text-white transition-colors duration-300"
-              aria-label="GitHub"
-            >
-              <Github size={16} />
-            </a>
-            <a
-              href={siteConfig.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/30 hover:text-green-neon transition-colors duration-300"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={16} />
-            </a>
-            <a
-              href={`mailto:${siteConfig.email}`}
-              className="text-white/30 hover:text-white transition-colors duration-300"
-              aria-label="Email"
-            >
-              <Mail size={16} />
-            </a>
-            <button
-              onClick={scrollTop}
-              className="text-white/40 hover:text-green-neon transition-colors duration-300"
-              aria-label="Back to top"
-            >
-              <ArrowUpCircle size={16} />
-            </button>
+          <div>
+            <span className="label">[ Conectar ]</span>
+            <ul>
+              <li><a href={profile.social.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href={profile.social.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            </ul>
           </div>
+        </div>
+        <div className="legal">
+          <span>© {new Date().getFullYear()} {profile.brand}</span>
+          <span>{profile.location}</span>
         </div>
       </div>
     </footer>

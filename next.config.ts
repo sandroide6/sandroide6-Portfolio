@@ -11,9 +11,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   transpilePackages: ['three', 'lenis'],
-  experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
-  },
 };
 
 export default nextConfig;

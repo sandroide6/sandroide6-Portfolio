@@ -1,48 +1,63 @@
-# Santiago Echeverri - Portfolio
+# Sr.cherry · Portafolio
 
-Portafolio profesional desarrollado con React + TypeScript + Vite.
-
-## Objetivo
-
-Mostrar perfil profesional, proyectos destacados, stack tecnico, estadisticas de GitHub y canales de contacto en una experiencia moderna, accesible y responsive.
+Portafolio personal de desarrollo de software: escenas a pantalla completa con un núcleo de partículas en Three.js, revelado de texto por scroll, carrusel 3D de proyectos y bento con datos reales. Paleta Night `#151515` y Burgundy `#93032E`.
 
 ## Stack
 
-- React 19
-- TypeScript
-- Vite
-- Framer Motion
-- Bootstrap 5 (utility classes)
-- Lucide React
+- Next.js 15 (App Router, exportación estática) y React 19
+- three + @react-three/fiber 9 (partículas con shader propio)
+- GSAP + ScrollTrigger (animaciones ligadas al scroll) y Lenis (scroll suave)
+- EmailJS para el formulario de contacto (opcional)
+- Fuentes Geist y Geist Mono con `next/font`
 
 ## Scripts
 
-- npm run dev: servidor de desarrollo
-- npm run build: build de produccion
-- npm run preview: vista previa local del build
-- npm run lint: analisis estatico con ESLint
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # genera out/
+npm run deploy   # build + publica out/ en la rama gh-pages
+```
 
-## Estructura relevante
+Requiere Node.js 20 o superior.
 
-- src/config/siteConfig.ts: contenido central del portfolio (perfil, skills, proyectos, links)
-- src/components: componentes de UI reutilizables
-- src/pages: secciones y paginas principales
-- src/styles/global.css: sistema visual global, temas y responsividad
+## Estructura
 
-## Personalizacion rapida
+- `lib/content.ts`: todo el texto (perfil, proyectos, estadísticas). Cambiar un proyecto no toca componentes.
+- `components/sections/`: Hero, Manifesto, FeaturedCase, Bridge, ProjectsCarousel, AboutBento, Contact.
+- `components/three/ParticleField.tsx`: nube de partículas (núcleo, huella, candado, polvo) con interacción de cursor.
+- `lib/shapes.ts`: generadores de las formas de partículas.
+- `app/globals.css`: tokens de color, tipografía y estilos.
+- `public/media/`: imágenes generadas con Higgsfield.
 
-1. Actualiza datos personales y enlaces en src/config/siteConfig.ts.
-2. Ajusta paleta y tipografias en src/styles/global.css.
-3. Reemplaza imagenes en src/assets/img y public/assets/img.
+## Imágenes
 
-## Deploy
+Los componentes buscan estos archivos en `public/media/`. Si un archivo no existe, se muestra un respaldo dibujado en código.
 
-El proyecto esta configurado con scripts para despliegue en GitHub Pages.
+| Archivo | Dónde se usa |
+| --- | --- |
+| `h3-gestor-jal.webp` | Caso destacado |
+| `h5a-lama.webp` | Tarjeta de L.A.M.A Medellín |
+| `h5e-hash.webp` | Bento, trabajo de grado |
 
-- npm run predeploy
-- npm run deploy
+## Formulario de contacto
+
+Sin variables de entorno, la sección de contacto muestra solo el correo. Para activar el formulario, crea `.env.local`:
+
+```bash
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=...
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=...
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=...
+```
+
+La plantilla de EmailJS debe usar los campos `from_name`, `reply_to` y `message`.
+
+## Accesibilidad y rendimiento
+
+- Con `prefers-reduced-motion` se desactivan las partículas animadas, el carrusel fijado y Lenis.
+- Sin WebGL, las secciones muestran su fondo en CSS.
+- El render 3D se pausa cuando la sección no está en pantalla y la densidad de píxeles se limita a 1,5.
 
 ## Derechos de uso
 
-Este repositorio esta bajo un esquema de "All rights reserved".
-No se autoriza copia, modificacion, redistribucion ni uso derivado sin permiso escrito del autor.
+Este repositorio está bajo un esquema de "All rights reserved". No se autoriza copia, modificación, redistribución ni uso derivado sin permiso escrito del autor.
