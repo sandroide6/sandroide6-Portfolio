@@ -48,7 +48,7 @@ const vertex = /* glsl */ `
     float a = uTime * uSpin;
     float c = cos(a), s = sin(a);
     p = vec3(p.x * c - p.z * s, p.y, p.x * s + p.z * c);
-    p += normalize(p + 0.0001) * sin(uTime * 0.8 + aRand * 6.2831) * 0.025;
+    p += normalize(p + 0.0001) * sin(uTime * 1.3 + aRand * 6.2831) * 0.04;
     float spread = uDisperse * (1.5 + aRand * 2.5);
     p *= 1.0 + spread;
     p.x += uDisperse * (aRand - 0.3) * 1.6;
@@ -101,8 +101,8 @@ function Points({ shape, morphTo, count, scale, offsetX, controls }: Required<Pi
       uDisperse: { value: 0 },
       uMorph: { value: 0 },
       uSize: { value: shape === 'dust' ? 26 : 34 },
-      uPixelRatio: { value: Math.min(gl.getPixelRatio(), 1.5) },
-      uSpin: { value: shape === 'core' ? 0.12 : shape === 'dust' ? 0.02 : 0.05 },
+      uPixelRatio: { value: Math.min(gl.getPixelRatio(), 1.25) },
+      uSpin: { value: shape === 'core' ? 0.24 : shape === 'dust' ? 0.06 : 0.12 },
       uMouse: { value: new THREE.Vector2(99, 99) },
       uMouseOn: { value: shape === 'dust' ? 0 : 1 },
       uBase: { value: new THREE.Color('#93032E') },
@@ -117,10 +117,10 @@ function Points({ shape, morphTo, count, scale, offsetX, controls }: Required<Pi
   useFrame((state, delta) => {
     const u = mat.current?.uniforms;
     if (!u) return;
-    u.uTime.value += Math.min(delta, 0.05);
+    u.uTime.value += Math.min(delta, 0.1);
     const target = controls?.current.disperse ?? 0;
     u.uDisperse.value += (target - u.uDisperse.value) * 0.12;
-    if (morphTo) u.uMorph.value = 0.5 - 0.5 * Math.cos(u.uTime.value * 0.55);
+    if (morphTo) u.uMorph.value = 0.5 - 0.5 * Math.cos(u.uTime.value * 0.8);
     const mx = (state.pointer.x * viewport.width) / 2;
     const my = (state.pointer.y * viewport.height) / 2;
     u.uMouse.value.x += (mx - u.uMouse.value.x) * 0.15;
@@ -163,7 +163,7 @@ export default function ParticleField({ shape, morphTo, count, scale = 1, offset
   useEffect(() => {
     setOk(hasWebGL());
     setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    if (!count) setN(window.innerWidth < 700 ? 2500 : 7000);
+    if (!count) setN(window.innerWidth < 700 ? 2000 : 5000);
     if (offsetXMobile !== undefined && window.innerWidth < 900) setOx(offsetXMobile);
     const el = wrap.current;
     if (!el) return;
@@ -176,7 +176,7 @@ export default function ParticleField({ shape, morphTo, count, scale = 1, offset
     <div ref={wrap} className={className} aria-hidden="true">
       {ok && (
         <Canvas
-          dpr={[1, 1.5]}
+          dpr={[1, 1.25]}
           camera={{ position: [0, 0, 5], fov: 45 }}
           gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
           frameloop={reduced ? 'demand' : visible ? 'always' : 'never'}

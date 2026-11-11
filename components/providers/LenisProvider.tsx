@@ -7,7 +7,7 @@ import { gsap, ScrollTrigger, prefersReducedMotion } from '@/lib/gsap';
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (prefersReducedMotion()) return;
-    const lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+    const lenis = new Lenis({ lerp: 0.12, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);

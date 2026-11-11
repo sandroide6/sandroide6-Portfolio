@@ -56,7 +56,7 @@ La plantilla de EmailJS debe usar los campos `from_name`, `reply_to` y `message`
 
 - Con `prefers-reduced-motion` se desactivan las partículas animadas, el carrusel fijado y Lenis.
 - Sin WebGL, las secciones muestran su fondo en CSS.
-- El render 3D se pausa cuando la sección no está en pantalla y la densidad de píxeles se limita a 1,5.
+- El render 3D se pausa cuando la sección no está en pantalla y la densidad de píxeles se limita a 1,25.
 
 ## Derechos de uso
 
