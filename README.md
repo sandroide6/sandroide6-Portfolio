@@ -36,7 +36,7 @@ Los componentes buscan estos archivos en `public/media/`. Si un archivo no exist
 
 | Archivo | Dónde se usa |
 | --- | --- |
-| `h3-gestor-jal.webp` | Caso destacado |
+| `h1-core.webp` | Fondo del hero (y `public/og.jpg` para redes) |
 | `h5a-lama.webp` | Tarjeta de L.A.M.A Medellín |
 | `h5e-hash.webp` | Bento, trabajo de grado |
 

@@ -40,6 +40,7 @@ export default function Hero() {
   return (
     <section className="hero" id="inicio" ref={root}>
       <div className="hero-light" aria-hidden="true" />
+      <div className="hero-poster" aria-hidden="true" />
       <ParticleField className="hero-canvas" shape="core" offsetX={0.04} offsetXMobile={0} controls={controls} eventSource={root} />
       <div className="hero-vignette" aria-hidden="true" />
       <h1 className="sr-only">

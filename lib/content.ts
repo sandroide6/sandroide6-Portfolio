@@ -59,7 +59,6 @@ export const featured: Project = {
   stack: ['React', 'Node + Express', 'PostgreSQL / Supabase', 'PWA', 'Vercel'],
   repo: 'https://github.com/sandroide6/gestor-jal-hibrido',
   demo: 'https://gestor-jal-frontend.vercel.app',
-  image: 'h3-gestor-jal.webp',
   source: 'README de gestor-jal-hibrido',
 };
 
